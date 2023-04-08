@@ -27,9 +27,12 @@ class MainActivity : AppCompatActivity() {
         val client = AsyncHttpClient()
         client["https://rickandmortyapi.com/api/character", object: JsonHttpResponseHandler(){
             override fun onSuccess(statusCode: Int, headers: Headers, json: JsonHttpResponseHandler.JSON) {
-                val rickImageArray = json.jsonObject.getJSONArray("message")
-                for (i in 0 <= until < rickImageArray.length()) {
-                    rickList.add(rickImageArray.getString(i))
+
+                val rickResults = json.jsonObject.getJSONArray("results")
+                for (i in 0 until rickResults.length()) {
+                    rickList.add(rickResults.getJSONObject(i).getString("image"))
+                    rickList.add(rickResults.getJSONObject(i).getString("name"))
+                    rickList.add(rickResults.getJSONObject(i).getString("species"))
                 }
                 Log.d("rickImageURL", "rick image URL set")
                 Log.d("rick", "response successful")
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 errorResponse: String,
                 throwable: Throwable?
             ) {
-                L
+                Log.d("Rick Error", errorResponse)
             }
     }]
-}
+}}
