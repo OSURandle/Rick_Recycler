@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class RickAdapter(private val rickList: List<String>) : RecyclerView.Adapter<RickAdapter.ViewHolder>(){
-    class ViewHolder(view:View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view:View) : RecyclerView.ViewHolder(view) {
          val rickImage: ImageView
          val rickName: TextView
          val rickSpecies: TextView
@@ -33,10 +33,13 @@ class RickAdapter(private val rickList: List<String>) : RecyclerView.Adapter<Ric
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder.rickName.text = rickList[position*3 + 1]
+        holder.rickSpecies.text = rickList[position*3 + 2]
         Glide.with(holder.itemView)
-            .load(rickList[position])
+            .load(rickList[position*3])
             .centerCrop()
             .into(holder.rickImage)
+
 
 
     }
